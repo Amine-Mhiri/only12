@@ -5,35 +5,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Only12 diagnostic</title>
 <style>
-:root{--ok:#1E7A4B;--no:#9B2C2C;--ink:#161A1C;--dim:#5B646B}
-body{margin:0;padding:40px 28px;background:#ECEEEF;color:var(--ink);
-  font:16px/1.6 ui-monospace,monospace}
-h1{font:600 20px/1.3 ui-monospace,monospace;margin:0 0 6px}
-p.sub{color:var(--dim);margin:0 0 30px}
-table{border-collapse:collapse;width:100%;max-width:720px;margin-bottom:34px}
-td{padding:10px 8px;border-bottom:1px solid #C8D0D6;vertical-align:top}
-td:first-child{color:var(--dim);width:58%}
+:root{--ok:#1E7A4B;--no:#9B2C2C;--ink:#161A1C;--dim:#5B646B;--line:#C8D0D6}
+body{margin:0;padding:36px 26px 80px;background:#ECEEEF;color:var(--ink);
+  font:15px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}
+h1{font:600 18px/1.3 ui-monospace,monospace;margin:34px 0 4px}
+h1:first-of-type{margin-top:0}
+p.sub{color:var(--dim);margin:0 0 20px}
+table{border-collapse:collapse;width:100%;max-width:760px;margin-bottom:10px}
+td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{color:var(--dim);width:56%}
 b.y{color:var(--ok)}b.n{color:var(--no)}
-.verdict{max-width:720px;padding:18px 20px;border:2px solid var(--ink);margin-bottom:34px;
-  font-size:17px}
-.box{width:64px;height:64px;background:var(--ink);animation:slide 2s ease-in-out infinite alternate}
-@keyframes slide{from{transform:translateX(0)}to{transform:translateX(220px)}}
-.note{max-width:720px;color:var(--dim);margin-top:14px}
+.verdict{max-width:760px;padding:16px 18px;border:2px solid var(--ink);margin-bottom:26px}
+.box{width:56px;height:56px;background:var(--ink);
+  animation:slide 2s ease-in-out infinite alternate}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(200px)}}
+.note{max-width:760px;color:var(--dim);margin-top:12px}
+button{font:500 13px/1 ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--ink);color:#ECEEEF;border:0;padding:13px 20px;cursor:pointer}
+.bar{height:6px;background:#D8DDE0;max-width:760px;margin:14px 0}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .2s linear}
+pre{max-width:760px;background:#E3E6E8;padding:12px;overflow:auto;font-size:13px;
+  white-space:pre-wrap}
 </style>
 </head>
 <body>
-<h1>Only12 diagnostic</h1>
-<p class="sub">Open this in the same browser you are viewing the site in.</p>
 
-<div class="verdict" id="verdict">checking…</div>
-
+<h1>1. Which version of the page are you getting?</h1>
+<p class="sub">Updates by itself once a second. No need to reload.</p>
+<div class="verdict" id="verdict">checking...</div>
 <table id="t"></table>
 
-<h1>Is CSS animation running at all?</h1>
-<p class="sub">The square below should slide left and right, without stopping.</p>
+<h1>2. Does animation run in this browser at all?</h1>
+<p class="sub">This square should slide left and right without stopping.</p>
 <div class="box"></div>
-<p class="note">If that square is not moving, your browser or system is blocking animation
-globally, and that is why the site looks still.</p>
+<p class="note">If it is not moving, something is blocking animation for every site,
+not just this one.</p>
+
+<h1>3. Can this browser load and scrub the hero video?</h1>
+<p class="sub">The real test. It downloads the same file the site uses and tries to seek inside it.</p>
+<button id="run">Run the video test</button>
+<div class="bar"><i id="bar"></i></div>
+<pre id="log">not started</pre>
 
 <script>
 var GATES = [
@@ -43,46 +55,34 @@ var GATES = [
   ['(orientation: landscape) and (pointer: coarse) and (max-height: 560px)', 'short landscape touch screen'],
   ['(prefers-reduced-motion: reduce)', 'reduced motion is ON']
 ];
-var rows = [];
-var hit = [];
-GATES.forEach(function(g){
-  var m = matchMedia(g[0]).matches;
-  if (m) hit.push(g[1]);
-  rows.push([g[1], m]);
-});
-rows.push(['window size', innerWidth + ' x ' + innerHeight + ' px']);
-rows.push(['pointer', matchMedia('(pointer: coarse)').matches ? 'coarse (touch)' : 'fine (mouse)']);
-rows.push(['orientation', matchMedia('(orientation: portrait)').matches ? 'portrait' : 'landscape']);
-rows.push(['browser', navigator.userAgent.slice(0, 70)]);
-
-document.getElementById('t').innerHTML = rows.map(function(r){
-  var v = r[1];
-  if (typeof v === 'boolean') v = v ? '<b class="n">YES</b>' : '<b class="y">no</b>';
-  return '<tr><td>' + r[0] + '</td><td>' + v + '</td></tr>';
-}).join('');
 
 function render(){
-  var hit2 = [];
+  var hit = [];
   var html = GATES.map(function(g){
     var m = matchMedia(g[0]).matches;
-    if (m) hit2.push(g[1]);
+    if (m) hit.push(g[1]);
     return '<tr><td>' + g[1] + '</td><td>' +
       (m ? '<b class="n">YES</b>' : '<b class="y">no</b>') + '</td></tr>';
   }).join('');
   html += '<tr><td>window size</td><td>' + innerWidth + ' x ' + innerHeight + ' px</td></tr>';
-  html += '<tr><td>pointer</td><td>' + (matchMedia('(pointer: coarse)').matches ? 'coarse (touch)' : 'fine (mouse)') + '</td></tr>';
-  html += '<tr><td>orientation</td><td>' + (matchMedia('(orientation: portrait)').matches ? 'portrait' : 'landscape') + '</td></tr>';
+  html += '<tr><td>pointer</td><td>' +
+    (matchMedia('(pointer: coarse)').matches ? 'coarse (touch)' : 'fine (mouse)') + '</td></tr>';
+  html += '<tr><td>orientation</td><td>' +
+    (matchMedia('(orientation: portrait)').matches ? 'portrait' : 'landscape') + '</td></tr>';
+  html += '<tr><td>connection</td><td>' +
+    (navigator.connection ? (navigator.connection.effectiveType || '?') +
+      ', downlink ' + (navigator.connection.downlink || '?') + ' Mbps' : 'not reported') + '</td></tr>';
   html += '<tr><td>checked at</td><td>' + new Date().toLocaleTimeString() + '</td></tr>';
   document.getElementById('t').innerHTML = html;
-  var vv = document.getElementById('verdict');
-  if (hit2.length === 0) {
-    vv.innerHTML = '<b class="y">The scrolling video hero SHOULD be running for you.</b><br>' +
+
+  var v = document.getElementById('verdict');
+  if (hit.length === 0) {
+    v.innerHTML = '<b class="y">You should be getting the scrolling video hero.</b><br>' +
       'None of the five conditions that switch it to a still image are true. ' +
-      'Open the site and scroll slowly through the top: the video is driven by your scroll ' +
-      'position and never plays on its own.';
+      'Now run test 3, because if the video cannot load you get a still hero anyway.';
   } else {
-    vv.innerHTML = '<b class="n">You are getting the still-image version.</b><br>Because: ' +
-      hit2.join(', ') + '.';
+    v.innerHTML = '<b class="n">You are getting the still-image version.</b><br>Because: ' +
+      hit.join(', ') + '.';
   }
 }
 GATES.forEach(function(g){
@@ -93,6 +93,61 @@ addEventListener('resize', render);
 setInterval(render, 1000);
 render();
 
+var VIDEO = 'assets/hero-scrub.mp4';
+var log = document.getElementById('log');
+var bar = document.getElementById('bar');
+var lines = [];
+function say(s){ lines.push(s); log.textContent = lines.join('\n'); }
+
+document.getElementById('run').addEventListener('click', function(){
+  lines = []; bar.style.width = '0';
+  say('fetching ' + VIDEO + ' ...');
+  var t0 = performance.now();
+  fetch(VIDEO).then(function(res){
+    say('HTTP ' + res.status + '  ' + (res.headers.get('Content-Type') || 'no content-type'));
+    var total = Number(res.headers.get('Content-Length')) || 3417783;
+    say('expected size: ' + total + ' bytes');
+    if (!res.body) { say('FAIL: this browser gave no readable stream'); return; }
+    var reader = res.body.getReader(), chunks = [], got = 0;
+    function pump(){
+      return reader.read().then(function(r){
+        if (r.done) return;
+        chunks.push(r.value); got += r.value.length;
+        bar.style.width = Math.min(100, got / total * 100) + '%';
+        return pump();
+      });
+    }
+    return pump().then(function(){
+      var dt = Math.round(performance.now() - t0);
+      say('downloaded ' + got + ' bytes in ' + dt + ' ms');
+      var blob = new Blob(chunks, { type: 'video/mp4' });
+      var url = URL.createObjectURL(blob);
+      var v = document.createElement('video');
+      v.muted = true; v.playsInline = true; v.preload = 'auto'; v.src = url;
+      var settled = false;
+      v.addEventListener('error', function(){
+        if (settled) return; settled = true;
+        say('FAIL: the browser could not decode this video. Codec unsupported.');
+      });
+      v.addEventListener('canplay', function(){
+        if (settled) return; settled = true;
+        say('decoded OK, duration ' + v.duration.toFixed(2) + 's');
+        v.currentTime = 3.0;
+        v.addEventListener('seeked', function(){
+          say('seek test: asked for 3.00s, landed at ' + v.currentTime.toFixed(2) + 's');
+          say(Math.abs(v.currentTime - 3) < 0.5
+            ? 'RESULT: this browser can scrub the hero. The site should work for you.'
+            : 'RESULT: seeking is inaccurate here, which would make scrubbing feel stuck.');
+        }, { once: true });
+      });
+      setTimeout(function(){
+        if (!settled) { settled = true; say('FAIL: video never became playable within 15s'); }
+      }, 15000);
+    });
+  }).catch(function(e){
+    say('FAIL: ' + e.name + ' ' + e.message);
+  });
+});
 </script>
 </body>
 </html>

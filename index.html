@@ -355,6 +355,32 @@ footer{position:relative;z-index:2;background:var(--panel);padding:72px 32px 52p
   .e-blur .sharp{opacity:1}
 }
 
+/* The video is not driving the hero, so it must not stay 6 screens tall.
+   Identical declarations to the five-gate block above, generated from it. */
+html.novideo .hero{height:auto}
+html.novideo .stage{position:relative;height:auto;min-height:92vh;display:flex;align-items:center}
+html.novideo #hero,html.novideo .ring,html.novideo .chev{display:none}
+html.novideo .poster{position:absolute;inset:0;transform:none;
+    background-image:url('assets/hero-ending.jpg')}
+html.novideo .bands{position:relative;inset:auto;padding:clamp(96px,16vh,150px) 7vw clamp(56px,10vh,90px)}
+html.novideo .band{position:relative;left:auto;top:auto;transform:none;opacity:1;width:min(38ch,100%);
+    margin-left:auto;margin-right:auto}
+html.novideo .band::before{display:none}
+html.novideo .band.hide-static{display:none}
+html.novideo .band + .band{margin-top:30px}
+html.novideo /* the static hero is a composed block: headline,html.novideo subline,html.novideo mark,html.novideo one action */
+  .band.settle .line{font-family:var(--body);font-weight:400;
+    font-size:clamp(16px,4.4vw,20px);line-height:1.5;letter-spacing:0;
+    color:var(--text-secondary);max-width:32ch;margin-left:auto;margin-right:auto}
+html.novideo .band.settle .sub{display:none}
+html.novideo .band .sub,html.novideo .band .ticks,html.novideo .band .cta{opacity:1;transform:none}
+html.novideo /* these must match or beat .e-rise .w and .e-scatter .c,html.novideo or the words stay invisible */
+  .band .w,html.novideo .band .c,html.novideo .e-rise .w,html.novideo .e-scatter .c{opacity:1;transform:none}
+html.novideo .settle .sub,html.novideo .settle .ticks,html.novideo .settle .cta{opacity:1;transform:none}
+html.novideo .e-blur .soft{display:none}
+html.novideo .e-blur .sharp{opacity:1}
+
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
     transition-duration:.001ms!important;transition-delay:0s!important}
@@ -787,6 +813,8 @@ function initHeroOnce(){
   img.onload = startBlobFetch; img.onerror = startBlobFetch;
   img.src = 'assets/hero-poster.jpg';
   setTimeout(startBlobFetch, 4000);
+  // overall deadline: a slow link must not leave a dead pinned hero
+  setTimeout(function(){ if (!stage.classList.contains('video-ready')) failVideo(); }, 30000);
   requestAnimationFrame(loadRamp);
 }
 
@@ -834,7 +862,10 @@ function failVideo(){
     ring.parentNode.replaceChild(chev, ring);
   }
   stage.classList.add('video-failed');
+  document.documentElement.classList.add('novideo');
   video.style.display = 'none';
+  disableScrub();
+  bands.forEach(function(b){ b.el.style.opacity='1'; b.el.style.setProperty('--k','1'); });
 }
 
 /* ---------- arm and disarm the scrub, live on every gate change ---------- */

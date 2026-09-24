@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Only12 · Everything you buy. Nothing you should worry about.</title>
+<meta name="description" content="Twelve references per product type. Nothing else earns the shelf. Only12 does not sell health, it removes the doubt.">
+<meta name="theme-color" content="#0E1114">
+<!-- og tags patched at deploy: https://amine-mhiri.github.io/only12/ -->
+<meta property="og:title" content="Only12 · Everything you buy. Nothing you should worry about.">
+<meta property="og:description" content="Twelve references per product type. Nothing else earns the shelf.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://amine-mhiri.github.io/only12/">
+<meta property="og:image" content="https://amine-mhiri.github.io/only12/assets/hero-ending.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230E1114'/%3E%3Cg fill='%238FD2E8'%3E%3Crect x='3' y='13' width='1.4' height='6'/%3E%3Crect x='5.3' y='13' width='1.4' height='6'/%3E%3Crect x='7.6' y='13' width='1.4' height='6'/%3E%3Crect x='9.9' y='13' width='1.4' height='6'/%3E%3Crect x='12.2' y='13' width='1.4' height='6'/%3E%3Crect x='14.5' y='13' width='1.4' height='6'/%3E%3Crect x='16.8' y='13' width='1.4' height='6'/%3E%3Crect x='19.1' y='13' width='1.4' height='6'/%3E%3Crect x='21.4' y='13' width='1.4' height='6'/%3E%3Crect x='23.7' y='13' width='1.4' height='6'/%3E%3Crect x='26' y='13' width='1.4' height='6'/%3E%3Crect x='28.3' y='13' width='1.4' height='6'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@450;500&family=IBM+Plex+Sans:wght@400;450;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#0E1114;
+  --panel:#161A1F;
+  --accent:#8FD2E8;
+  --accent-hover:#B4E2F1;
+  --accent-muted:#2B3740;
+  --text-secondary:#AEB9C2;
+  --text-primary:#EDF1F3;
+  --rule:#232B32;
+  --display:'Newsreader',Georgia,serif;
+  --body:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-soft:cubic-bezier(.4,0,.2,1);
+  --tshadow:0 1px 2px rgba(5,8,10,.95),0 3px 12px rgba(5,8,10,.78),0 10px 44px rgba(5,8,10,.8);
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{overflow-x:hidden;overflow-x:clip}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--canvas);color:var(--text-primary);
+  font-family:var(--body);font-size:18px;font-weight:450;line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.1;letter-spacing:-.012em;margin:0}
+p{margin:0}
+a{color:inherit}
+img{display:block;max-width:100%}
+
+/* one fixed environment layer so scrolling feels like moving through a place */
+.env{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(120% 80% at 50% -10%,rgba(143,210,232,.07) 0%,rgba(143,210,232,0) 60%),
+    radial-gradient(90% 60% at 20% 110%,rgba(35,43,50,.55) 0%,rgba(35,43,50,0) 65%);
+  animation:envDrift 84s var(--ease-soft) -12s infinite alternate}
+@keyframes envDrift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(0,-2.2%,0) scale(1.06)}}
+
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--accent);color:#fff;
+  padding:12px 18px;font-family:var(--mono);font-size:13px}
+.skip:focus{left:12px;top:12px}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:baseline;
+  justify-content:space-between;padding:20px 32px;
+  background:linear-gradient(to bottom,rgba(14,17,20,.92),rgba(14,17,20,0));
+  transition:background .5s var(--ease)}
+.brand{font-family:var(--display);font-size:21px;font-weight:500;letter-spacing:.01em;text-decoration:none}
+.brand b{font-weight:400}
+.nav .navcta{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;text-decoration:none;color:var(--text-primary);transition:color .35s var(--ease)}
+.nav .navcta:hover{color:var(--accent)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:640vh;z-index:1}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--panel)}
+.poster{position:absolute;inset:0;background-size:cover;background-position:center;
+  transform:scale(1.02)}
+#hero{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .9s var(--ease);will-change:transform;transform:translateZ(0)}
+.stage.video-ready #hero{opacity:1}
+.stage.video-ready .poster{opacity:0;transition:opacity .9s var(--ease)}
+/* global base lift: no frame is ever raw behind the type */
+.scrim{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 95% 85% at 50% 52%,rgba(6,9,12,.52) 0%,rgba(6,9,12,.34) 55%,rgba(6,9,12,.12) 100%)}
+
+.ring{position:absolute;left:50%;bottom:44px;width:34px;height:34px;margin-left:-17px;
+  color:var(--accent-muted);opacity:.9;transform:rotate(-90deg)}
+.ring circle{transition:stroke-dashoffset .2s linear}
+.chev{position:absolute;left:50%;bottom:40px;margin-left:-11px;width:22px;height:22px;
+  color:var(--text-secondary);opacity:.55;animation:chev 2.6s var(--ease-soft) infinite}
+@keyframes chev{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(7px);opacity:.75}}
+
+.bands{position:absolute;inset:0;pointer-events:none}
+.band{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(40ch,54vw);
+  text-align:center;opacity:0;text-shadow:var(--tshadow)}
+.band::before{content:"";position:absolute;inset:-72% -92%;pointer-events:none;z-index:-1;
+  opacity:calc(.28 + .72*var(--k,1));
+  background:radial-gradient(ellipse 52% 46% at 50% 50%,rgba(4,7,10,.90) 0%,rgba(4,7,10,.74) 38%,rgba(4,7,10,.34) 62%,rgba(4,7,10,0) 84%)}
+.band .kicker{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--text-primary);margin-bottom:18px;display:block}
+.band h1,.band .line{font-family:var(--display);font-weight:500;
+  font-size:clamp(34px,4.6vw,62px);line-height:1.06;letter-spacing:-.02em}
+.band .sub{margin-top:18px;font-size:clamp(16px,1.3vw,19px);font-weight:450;color:var(--text-primary);
+  max-width:34ch;margin-left:auto;margin-right:auto}
+.band .btn{text-shadow:none}
+
+/* per-character and per-word split spans */
+.w{display:inline-block;white-space:pre}
+.c{display:inline-block;will-change:transform,opacity}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* entrance: scatter */
+.e-scatter .c{--kc:clamp(0,(var(--k,0) - var(--th,0))*2.6,1);opacity:var(--kc);
+  transform:translate(calc((1 - var(--kc))*var(--jx,0px)),calc((1 - var(--kc))*var(--jy,0px)))
+            rotate(calc((1 - var(--kc))*var(--jr,0deg)))}
+/* entrance: word rise */
+.e-rise .w{--kc:clamp(0,(var(--k,0) - var(--th,0))*2.8,1);opacity:var(--kc);
+  transform:translateY(calc((1 - var(--kc))*18px))}
+/* entrance: blur to sharp, two stacked copies, static blur only */
+.e-blur{position:relative}
+.e-blur .soft{position:absolute;inset:0;filter:blur(9px);opacity:calc(1 - var(--k,0));pointer-events:none}
+.e-blur .sharp{opacity:var(--k,0)}
+
+.settle .sub{--ks:clamp(0,(var(--k,0) - .60)*3.4,1);opacity:var(--ks);
+  transform:translateY(calc((1 - var(--ks))*12px))}
+.settle .ticks{--kt:clamp(0,(var(--k,0) - .40)*3,1);opacity:var(--kt)}
+.settle .cta{--kb:clamp(0,(var(--k,0) - .78)*5,1);opacity:var(--kb);
+  transform:translateY(calc((1 - var(--kb))*10px))}
+
+/* the twelve ticks, the site's one signature mark */
+.ticks{display:flex;gap:7px;align-items:flex-end;margin-top:26px;height:26px;justify-content:center}
+.ticks i{display:block;width:2px;background:var(--accent);height:14px;opacity:.55;
+  transform-origin:bottom}
+.ticks i:nth-child(3n){height:26px;opacity:1}
+.ticks.lit i{animation:tickGlow 5.5s var(--ease-soft) infinite}
+.ticks.lit i:nth-child(2n){animation-delay:-1.8s}
+.ticks.lit i:nth-child(3n){animation-delay:-3.4s}
+@keyframes tickGlow{0%,100%{opacity:.5}50%{opacity:1}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--mono);font-size:13.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--accent);color:#08121A;border:0;padding:15px 26px;cursor:pointer;
+  text-decoration:none;transition:background .4s var(--ease),transform .4s var(--ease)}
+.btn:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent-muted)}
+.btn.ghost:hover{background:var(--panel);border-color:var(--accent)}
+
+/* ---------- page below the hero ---------- */
+main{position:relative;z-index:2;background:var(--canvas)}
+.sec{padding:clamp(88px,11vw,164px) 32px;max-width:1180px;margin:0 auto;position:relative}
+.kicker{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent);display:block;margin-bottom:26px}
+.h2{font-size:clamp(28px,3.6vw,52px);max-width:19ch}
+.lede{margin-top:26px;font-size:clamp(17px,1.4vw,20px);font-weight:450;
+  color:var(--text-secondary);max-width:62ch}
+.pull{font-family:var(--display);font-size:clamp(24px,3vw,40px);line-height:1.2;
+  max-width:24ch;margin-top:48px;color:var(--text-primary)}
+
+/* the self-drawing rule, repeated as the filter's edge */
+.ruleline{width:100%;height:1px;overflow:visible;margin:0;display:block}
+.ruleline line{stroke:var(--rule);stroke-width:1;
+  stroke-dasharray:var(--len,1200);stroke-dashoffset:var(--len,1200);
+  transition:stroke-dashoffset 1.5s var(--ease)}
+.in .ruleline line{stroke-dashoffset:0}
+
+/* 01 problem, centered statement */
+.s-problem{text-align:center}
+.s-problem .h2{max-width:22ch;margin:0 auto}
+.s-problem .lede{margin-left:auto;margin-right:auto}
+.s-problem .pull{margin-left:auto;margin-right:auto;text-align:center;color:var(--accent)}
+
+/* 02 lever, split */
+.s-lever .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,92px);align-items:start}
+.leverlist{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.leverlist li{padding:22px 0;border-bottom:1px solid var(--rule);display:flex;gap:20px;
+  align-items:baseline;font-size:clamp(17px,1.6vw,22px)}
+.leverlist .n{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--accent);letter-spacing:.12em;
+  flex:0 0 auto}
+
+/* 03 paradox, full bleed over the atmosphere still */
+.s-paradox{max-width:none;padding-left:0;padding-right:0}
+.paradox-wrap{position:relative;min-height:74vh;display:flex;align-items:center;justify-content:center;
+  overflow:hidden}
+.paradox-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.paradox-wrap::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(14,17,20,.72) 0%,rgba(14,17,20,.86) 60%,rgba(14,17,20,.95) 100%)}
+.paradox-inner{position:relative;z-index:2;text-align:center;padding:0 32px;max-width:900px}
+.paradox-inner .h2{margin:0 auto;max-width:16ch}
+.paradox-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:54px;
+  max-width:1000px;margin-left:auto;margin-right:auto;text-align:left}
+.paradox-cols p{font-size:16px;font-weight:450;color:var(--text-secondary);padding-top:16px;
+  border-top:1px solid var(--accent-muted)}
+
+/* 04 the two existing answers, deliberately unequal */
+.s-tools .grid{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(32px,5vw,72px);
+  align-items:start;margin-top:52px}
+.card{background:var(--panel);padding:clamp(28px,3.4vw,48px);position:relative}
+.card h3{font-size:clamp(21px,2.1vw,29px);margin-bottom:20px}
+.card .tag{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);display:block;margin-bottom:18px}
+.card ul{list-style:none;margin:0 0 22px;padding:0}
+.card li{padding:12px 0;border-bottom:1px solid var(--rule);font-size:16.5px;
+  font-weight:450;color:var(--text-secondary)}
+.card .close{font-size:16.5px;font-weight:450;margin-top:20px}
+
+/* 05 the real problem, narrow and large */
+.s-core{text-align:center;max-width:920px}
+.s-core .h2{max-width:100%;margin:0 auto;font-size:clamp(30px,4.2vw,58px)}
+.s-core .pull{margin:44px auto 0;color:var(--accent);max-width:22ch}
+
+/* 06 doctrine, alternating numbered rows */
+.doctrine{margin-top:56px;border-top:1px solid var(--rule)}
+.drow{display:grid;grid-template-columns:auto 1fr 1.25fr;gap:clamp(20px,3.4vw,56px);
+  padding:clamp(28px,3.2vw,44px) 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.drow .num{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.14em;color:var(--accent)}
+.drow h3{font-size:clamp(20px,2.1vw,28px)}
+.drow p{color:var(--text-secondary);font-size:16.5px;font-weight:450}
+
+/* 07 the rule of twelve, the signature and the interactive moment */
+.s-twelve{text-align:center}
+.s-twelve .h2{margin:0 auto;max-width:17ch}
+.s-twelve .lede{margin-left:auto;margin-right:auto}
+.filterbox{margin:58px auto 0;max-width:760px;background:var(--panel);
+  padding:clamp(28px,3.6vw,48px);border:1px solid var(--rule)}
+.readout{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-secondary);min-height:1.5em;margin-bottom:26px}
+.readout b{color:var(--accent);font-weight:500}
+.field{display:grid;grid-template-columns:repeat(12,1fr);gap:9px;margin-bottom:30px}
+.dot{position:relative;aspect-ratio:1;border-radius:50%;background:var(--accent-muted);
+  transition:background .5s var(--ease),opacity .5s var(--ease),transform .5s var(--ease)}
+.dot.out{opacity:.16;transform:scale(.6)}
+.dot.keep{background:var(--accent);opacity:1;transform:scale(1)}
+.holdbtn{-webkit-user-select:none;user-select:none;touch-action:none}
+.holdtrack{height:2px;background:var(--accent-muted);margin-top:22px;position:relative;overflow:hidden}
+.holdfill{position:absolute;inset:0;background:var(--accent);transform-origin:left;
+  transform:scaleX(var(--hp,0))}
+.hint{font-family:var(--mono);font-size:12px;font-weight:450;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-secondary);margin-top:16px}
+
+/* 08 categories as a definition list */
+.cats{margin-top:56px;border-top:1px solid var(--rule)}
+.cats div{display:grid;grid-template-columns:.85fr 1.4fr;gap:clamp(20px,4vw,64px);
+  padding:clamp(24px,2.8vw,38px) 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.cats dt{font-family:var(--display);font-size:clamp(21px,2.3vw,31px);font-weight:400}
+.cats dd{margin:0;color:var(--text-secondary);font-size:16.5px;font-weight:450}
+
+/* 09 manifesto, image and two lists */
+.s-manifesto .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,88px);
+  align-items:center;margin-top:52px}
+.s-manifesto figure{margin:0;overflow:hidden}
+.s-manifesto img{width:100%;height:100%;object-fit:cover}
+.beliefs{display:grid;gap:40px}
+.beliefs h3{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;margin-bottom:16px}
+.beliefs ul{list-style:none;margin:0;padding:0}
+.beliefs li{padding:12px 0;border-bottom:1px solid var(--rule);font-size:17px;font-weight:450}
+
+/* 10 faq */
+.faq{margin-top:52px;display:grid;gap:0;border-top:1px solid var(--rule)}
+.faq div{padding:clamp(26px,3vw,40px) 0;border-bottom:1px solid var(--rule);
+  display:grid;grid-template-columns:1fr 1.3fr;gap:clamp(20px,4vw,64px);align-items:baseline}
+.faq dt{font-family:var(--display);font-size:clamp(20px,2vw,26px);font-weight:400}
+.faq dd{margin:0;color:var(--text-secondary);font-size:17px;font-weight:450}
+
+/* 11 the early list */
+.s-cta{max-width:none;padding-left:0;padding-right:0}
+.cta-wrap{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;
+  overflow:hidden}
+.cta-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cta-wrap::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse 75% 70% at 50% 50%,rgba(14,17,20,.76) 0%,rgba(14,17,20,.88) 60%,rgba(14,17,20,.96) 100%)}
+.cta-inner{position:relative;z-index:2;text-align:center;padding:0 32px;max-width:640px}
+.cta-inner .h2{margin:0 auto 22px;max-width:15ch}
+form{margin-top:36px;display:flex;flex-direction:column;gap:12px;align-items:stretch;
+  width:100%;max-width:340px;margin-left:auto;margin-right:auto}
+form .btn{width:100%}
+label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+input[type=email]{width:100%;padding:16px 18px;font-family:var(--body);
+  font-size:16px;font-weight:450;border:1px solid var(--accent-muted);background:rgba(255,255,255,.04);
+  color:var(--text-primary);transition:border-color .35s var(--ease)}
+input[type=email]:focus{border-color:var(--accent);outline:none}
+.formnote{font-family:var(--mono);font-size:12px;font-weight:450;letter-spacing:.08em;color:var(--text-secondary);
+  margin-top:20px;text-transform:uppercase}
+.success{display:none;font-family:var(--display);font-size:clamp(22px,2.4vw,32px);margin-top:26px}
+form.done{display:none}
+.success.show{display:block}
+
+/* footer */
+footer{position:relative;z-index:2;background:var(--panel);padding:72px 32px 52px;
+  border-top:1px solid var(--rule)}
+.finner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr auto;
+  gap:44px;align-items:end}
+.fquote{font-family:var(--display);font-size:clamp(21px,2.4vw,32px);max-width:20ch;line-height:1.2}
+.fmeta{font-family:var(--mono);font-size:12px;font-weight:450;letter-spacing:.08em;color:var(--text-secondary);
+  line-height:2;text-align:right}
+
+/* section entrance choreography */
+.rev{opacity:0;transform:translateY(22px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.in .rev,.rev.in{opacity:1;transform:none}
+.in .rev:nth-child(2){transition-delay:.09s}
+.in .rev:nth-child(3){transition-delay:.18s}
+.in .rev:nth-child(4){transition-delay:.27s}
+.in .rev:nth-child(5){transition-delay:.36s}
+/* retire the stagger so later hovers never lag; matches the nth-child specificity above */
+.in.done .rev:nth-child(2),.in.done .rev:nth-child(3),
+.in.done .rev:nth-child(4),.in.done .rev:nth-child(5){transition-delay:0s}
+
+/* short desktop windows have no room for the scroll cue */
+@media (max-height:560px){.ring,.chev{display:none}}
+
+@media (pointer:coarse){
+  .btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+  input[type=email]{min-height:44px}
+}
+
+@media (max-width:980px){
+  .s-lever .grid,.s-tools .grid,.s-manifesto .grid{grid-template-columns:1fr}
+  .paradox-cols{grid-template-columns:repeat(2,1fr)}
+  .drow{grid-template-columns:auto 1fr;row-gap:12px}
+  .drow p{grid-column:2}
+  .cats div,.faq div{grid-template-columns:1fr;row-gap:10px}
+  .finner{grid-template-columns:1fr}
+  .fmeta{text-align:left}
+}
+
+/* ---------- the five static-hero gates, matched exactly in JS ---------- */
+@media (max-width:720px),
+       (orientation:portrait) and (max-width:1024px),
+       (orientation:portrait) and (pointer:coarse),
+       (orientation:landscape) and (pointer:coarse) and (max-height:560px),
+       (prefers-reduced-motion:reduce){
+  .hero{height:auto}
+  .stage{position:relative;height:auto;min-height:92vh;display:flex;align-items:center}
+  #hero,.ring,.chev{display:none}
+  .poster{position:absolute;inset:0;transform:none;
+    background-image:url('assets/hero-ending.jpg')}
+  .bands{position:relative;inset:auto;padding:clamp(96px,16vh,150px) 7vw clamp(56px,10vh,90px)}
+  .band{position:relative;left:auto;top:auto;transform:none;opacity:1;width:min(38ch,100%);
+    margin-left:auto;margin-right:auto}
+  .band::before{display:none}
+  .band.hide-static{display:none}
+  .band + .band{margin-top:30px}
+  /* the static hero is a composed block: headline, subline, mark, one action */
+  .band.settle .line{font-family:var(--body);font-weight:400;
+    font-size:clamp(16px,4.4vw,20px);line-height:1.5;letter-spacing:0;
+    color:var(--text-secondary);max-width:32ch;margin-left:auto;margin-right:auto}
+  .band.settle .sub{display:none}
+  .band .sub,.band .ticks,.band .cta{opacity:1;transform:none}
+  /* these must match or beat .e-rise .w and .e-scatter .c, or the words stay invisible */
+  .band .w,.band .c,.e-rise .w,.e-scatter .c{opacity:1;transform:none}
+  .settle .sub,.settle .ticks,.settle .cta{opacity:1;transform:none}
+  .e-blur .soft{display:none}
+  .e-blur .sharp{opacity:1}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;transition-delay:0s!important}
+  .rev{opacity:1;transform:none}
+  .ruleline line{stroke-dashoffset:0}
+  .env{animation:none}
+}
+body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="env" aria-hidden="true"></div>
+
+<nav class="nav">
+  <a class="brand" href="#top">Only<b>12</b></a>
+  <a class="navcta" href="#early-list">Early list</a>
+</nav>
+
+<div id="top"></div>
+
+<header class="hero" id="hero-region">
+  <div class="stage" id="stage">
+    <div class="poster" id="poster" aria-hidden="true"></div>
+    <video id="hero" preload="none" muted playsinline aria-hidden="true" tabindex="-1"></video>
+    <div class="scrim" aria-hidden="true"></div>
+    <svg class="ring" id="ring" viewBox="0 0 48 48" aria-hidden="true">
+      <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-dasharray="126" style="stroke-dashoffset:var(--ld,126)"/>
+    </svg>
+
+    <div class="bands" id="bands">
+      <section class="band e-rise" data-a="0" data-b="0.20" data-ramp="0.05">
+        <span class="kicker">Only12</span>
+        <h1 class="split">Everything you buy. Nothing you should worry about.</h1>
+      </section>
+
+      <section class="band e-blur hide-static" data-a="0.24" data-b="0.46">
+        <p class="line soft" aria-hidden="true">You are not short on information. You are short on a filter.</p>
+        <p class="line sharp">You are not short on information. You are short on a filter.</p>
+      </section>
+
+      <section class="band e-scatter hide-static" data-a="0.50" data-b="0.72" data-spread="0.5">
+        <p class="line split">Most of what is sold does not survive ours.</p>
+      </section>
+
+      <section class="band e-rise settle" data-a="0.77" data-b="1" data-ramp="0.05">
+        <p class="line split">Twelve per type. Nothing else earns the shelf.</p>
+        <div class="ticks lit" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <p class="sub">A published method, applied the same way to every product. You can read every rule, and every reason something was turned down.</p>
+        <div class="cta" style="margin-top:28px"><a class="btn" href="#early-list">Join the early list</a></div>
+      </section>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <section class="sec s-problem" id="problem">
+    <span class="kicker rev">01 / The problem</span>
+    <h2 class="h2 rev">These are not accidental diseases.</h2>
+    <p class="lede rev">Obesity, type 2 diabetes, cardiovascular disease and metabolic disorders are now the leading cause of death and of health spending worldwide. They are not bad luck. They are built out of ordinary days.</p>
+    <p class="pull rev">They are diseases of daily life.</p>
+  </section>
+
+  <svg class="ruleline" aria-hidden="true"><line x1="0" y1="0" x2="100%" y2="0"/></svg>
+
+  <section class="sec s-lever" id="lever">
+    <div class="grid">
+      <div>
+        <span class="kicker rev">02 / The lever</span>
+        <h2 class="h2 rev">The strongest lever available is not medical.</h2>
+        <p class="lede rev">It is not technological either. It is the quality of what you buy, every day.</p>
+      </div>
+      <div>
+        <ul class="leverlist rev">
+          <li><span class="n">01</span><span>What you eat</span></li>
+          <li><span class="n">02</span><span>What you give your children</span></li>
+          <li><span class="n">03</span><span>What you put on your skin</span></li>
+          <li><span class="n">04</span><span>What you clean your home with</span></li>
+        </ul>
+        <p class="lede rev">Repeated thousands of times a year, those decisions set your metabolic health, your exposure to sugars and additives, your hormones, and how your children develop.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec s-paradox" id="paradox">
+    <div class="paradox-wrap">
+      <img src="assets/atmosphere.jpg" alt="" loading="lazy" decoding="async">
+      <div class="paradox-inner">
+        <span class="kicker rev">03 / The paradox</span>
+        <h2 class="h2 rev">More choice. Worse choosing.</h2>
+        <p class="lede rev" style="margin-left:auto;margin-right:auto">Information has never been this abundant. Choosing well has never been this hard.</p>
+        <div class="paradox-cols">
+          <p class="rev">Buried in information that does not help</p>
+          <p class="rev">Contradictory advice from every direction</p>
+          <p class="rev">Labels and claims nobody can verify</p>
+          <p class="rev">More options than any person can hold</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec s-tools" id="tools">
+    <span class="kicker rev">04 / What already exists</span>
+    <h2 class="h2 rev">Both of the usual answers fall short.</h2>
+    <div class="grid">
+      <div class="card rev">
+        <span class="tag">Organic shops</span>
+        <h3>A label, not a verdict.</h3>
+        <ul>
+          <li>Organic is not low sugar</li>
+          <li>Organic is not right for a child</li>
+          <li>Organic is not nutritionally relevant</li>
+        </ul>
+        <p class="close">You are still abandoned in the aisle, only in a more expensive one.</p>
+      </div>
+      <div class="card rev">
+        <span class="tag">Scan apps</span>
+        <h3>The right instinct, the wrong moment.</h3>
+        <ul>
+          <li>Slow, and it costs you every trip</li>
+          <li>Piecemeal, one barcode at a time</li>
+          <li>Still dependent on endless aisles</li>
+        </ul>
+        <p class="close">It corrects after you have already picked the thing up. It never simplifies the shelf.</p>
+      </div>
+    </div>
+  </section>
+
+  <svg class="ruleline" aria-hidden="true"><line x1="0" y1="0" x2="100%" y2="0"/></svg>
+
+  <section class="sec s-core" id="core">
+    <span class="kicker rev">05 / The real problem</span>
+    <h2 class="h2 rev">The problem is not willpower. The problem is not information.</h2>
+    <p class="lede rev" style="margin-left:auto;margin-right:auto">The problem is the absence of a filter you can trust, applied at the moment you buy.</p>
+    <p class="pull rev">The hidden cost is not money. It is mental load.</p>
+  </section>
+
+  <section class="sec s-doctrine" id="doctrine">
+    <span class="kicker rev">06 / The doctrine</span>
+    <h2 class="h2 rev">Four rules, applied the same way every time.</h2>
+    <div class="doctrine">
+      <div class="drow rev">
+        <span class="num">01</span>
+        <h3>Curated by default</h3>
+        <p>No endless aisles. No artificial depth. If it is here, it already passed.</p>
+      </div>
+      <div class="drow rev">
+        <span class="num">02</span>
+        <h3>Science over labels</h3>
+        <p>Organic is not a sufficient criterion. Vegan, keto and organic are not guarantees. Ingredients, doses and real effects decide. Nothing enters without a rational justification.</p>
+      </div>
+      <div class="drow rev">
+        <span class="num">03</span>
+        <h3>No hype tolerance</h3>
+        <p>No trending superfood without grounds. No miracle claims. No borderline wording. Trends pass. Physiology stays.</p>
+      </div>
+      <div class="drow rev">
+        <span class="num">04</span>
+        <h3>Family safe by design</h3>
+        <p>A parent should be able to buy without doubting, justifying or explaining. If it is not acceptable for a child, it is not acceptable at all.</p>
+      </div>
+    </div>
+    <p class="pull rev" style="color:var(--accent)">Everything here is already filtered.</p>
+  </section>
+
+  <section class="sec s-twelve" id="twelve">
+    <span class="kicker rev">07 / The rule of 12</span>
+    <h2 class="h2 rev">Twelve per product type. No more.</h2>
+    <p class="lede rev">Twelve is enough to respect real differences in taste, budget, diet and conviction. It is not enough to create noise.</p>
+    <p class="pull rev" style="margin-left:auto;margin-right:auto;text-align:center;color:var(--accent)">Twelve is not a marketing number. It is a cognitive ceiling.</p>
+
+    <div class="filterbox rev">
+      <p class="readout" id="readout">Hold the button to run the filter</p>
+      <div class="field" id="field" aria-hidden="true"></div>
+      <button class="btn holdbtn" id="holdbtn" type="button" aria-describedby="readout">Hold to run the filter</button>
+      <div class="holdtrack" aria-hidden="true"><div class="holdfill" id="holdfill"></div></div>
+      <p class="hint">Illustrative. The marks stand for candidates, not for named products.</p>
+    </div>
+  </section>
+
+  <svg class="ruleline" aria-hidden="true"><line x1="0" y1="0" x2="100%" y2="0"/></svg>
+
+  <section class="sec s-cats" id="categories">
+    <span class="kicker rev">08 / The categories</span>
+    <h2 class="h2 rev">Five categories. Everything a family actually buys.</h2>
+    <dl class="cats">
+      <div class="rev"><dt>Food &amp; Drinks</dt><dd>Breakfast, drinks, snacks, staples, and the things you eat for pleasure.</dd></div>
+      <div class="rev"><dt>Fresh &amp; Raw</dt><dd>Fruit and vegetables with a readable origin. If it is here, you can give it to your family without hesitating.</dd></div>
+      <div class="rev"><dt>Sport &amp; Nutrition</dt><dd>Supplements, protein, hydration. Clean formulations and doses that do something.</dd></div>
+      <div class="rev"><dt>Body &amp; Hygiene</dt><dd>Daily body care and hygiene. Zero tolerance on contested substances.</dd></div>
+      <div class="rev"><dt>Home Essentials</dt><dd>Laundry, dish soap, cleaners, paper. Clean for your home, not just your shelves.</dd></div>
+    </dl>
+    <p class="pull rev">What you need, when you need it. Only the essentials.</p>
+  </section>
+
+  <section class="sec s-manifesto" id="manifesto">
+    <span class="kicker rev">09 / The manifesto</span>
+    <h2 class="h2 rev">What we refuse, and what we believe.</h2>
+    <div class="grid">
+      <figure class="rev">
+        <img src="assets/object.jpg" alt="A single unlabelled container on a bare pale surface" loading="lazy" decoding="async">
+      </figure>
+      <div class="beliefs">
+        <div class="rev">
+          <h3>We refuse</h3>
+          <ul>
+            <li>That eating well has to be complicated</li>
+            <li>That it should be reserved for experts</li>
+            <li>That organic, natural or clean are enough on their own</li>
+          </ul>
+        </div>
+        <div class="rev">
+          <h3>We believe</h3>
+          <ul>
+            <li>Science should outrank marketing</li>
+            <li>Fewer choices are usually better choices</li>
+            <li>Protecting your family should not be a daily fight</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="lede rev">Nothing here is here by accident. Every product has been selected, tested and understood. You do not need to scan, compare or second guess.</p>
+    <p class="pull rev" style="color:var(--accent)">You can simply choose.</p>
+  </section>
+
+  <section class="sec s-faq" id="faq">
+    <span class="kicker rev">10 / The obvious questions</span>
+    <h2 class="h2 rev">The questions worth asking first.</h2>
+    <dl class="faq">
+      <div class="rev"><dt>Why trust your filter more than the app I already do not trust?</dt>
+        <dd>Because you can read ours. Every rule is published, and so is the reason a product was turned down. A filter you cannot inspect is just another opinion.</dd></div>
+      <div class="rev"><dt>Is this another good and bad scoring system?</dt>
+        <dd>No. Nothing gets a score out of a hundred. A product is either defensible or it is not here.</dd></div>
+      <div class="rev"><dt>Is this extreme?</dt>
+        <dd>No. Family first, not radical. This is not built for ultra performers and it is not a club for obsessives. It is for ordinary weeks.</dd></div>
+      <div class="rev"><dt>Who decides?</dt>
+        <dd>A published method, applied the same way to every product, including the popular ones. Selling well is not a criterion.</dd></div>
+      <div class="rev"><dt>What if my favourite product is not on the list?</dt>
+        <dd>Then it did not pass, and you can read exactly why.</dd></div>
+    </dl>
+  </section>
+
+  <section class="sec s-cta" id="early-list">
+    <div class="cta-wrap">
+      <img src="assets/hero-ending.jpg" alt="" loading="lazy" decoding="async">
+      <div class="cta-inner">
+        <span class="kicker rev">11 / Early access</span>
+        <h2 class="h2 rev">Be there when the first index opens.</h2>
+        <p class="lede rev" style="margin-left:auto;margin-right:auto">One email when it is ready. Nothing else, ever.</p>
+        <form id="signup" novalidate>
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+          <button class="btn" type="submit">Join the early list</button>
+        </form>
+        <p class="success" id="success">You are on the list.</p>
+        <p class="formnote" id="formnote">This form is not connected yet, so nothing is sent or stored.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="finner">
+    <div>
+      <div class="ticks lit" aria-hidden="true" style="margin-bottom:26px;justify-content:flex-start"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="fquote">We don't sell healthy. We remove the doubt.</p>
+    </div>
+    <div class="fmeta">
+      <div>Only12</div>
+      <div>Imagery on this page is AI generated.</div>
+      <div>Only12 is in development.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- the five static-hero gates, identical strings to the CSS ---------- */
+var GATES = [
+  '(max-width: 720px)',
+  '(orientation: portrait) and (max-width: 1024px)',
+  '(orientation: portrait) and (pointer: coarse)',
+  '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)',
+  '(prefers-reduced-motion: reduce)'
+];
+var MQLS = GATES.map(function(q){ return matchMedia(q); });
+
+var VIDEO_URL = 'assets/hero-scrub.mp4';
+var VIDEO_BYTES = 3417783;
+
+var video   = document.getElementById('hero');
+var stage   = document.getElementById('stage');
+var poster  = document.getElementById('poster');
+var ring    = document.getElementById('ring');
+var heroReg = document.getElementById('hero-region');
+var bandEls = [].slice.call(document.querySelectorAll('.band'));
+
+/* ---------- seeded splitting, identical on every load ---------- */
+function rng(seed){ var s = seed >>> 0;
+  return function(){ s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
+
+function splitText(el, seedBase, spread){
+  var text = el.textContent;
+  var vh = document.createElement('span');
+  vh.className = 'vh'; vh.textContent = text;
+  var vis = document.createElement('span');
+  vis.setAttribute('aria-hidden','true');
+  var r = rng(seedBase);
+  var words = text.split(' ');
+  var total = text.length, idx = 0;
+  words.forEach(function(word, wi){
+    var w = document.createElement('span'); w.className = 'w';
+    w.style.setProperty('--th', (wi / words.length * 0.55).toFixed(3));
+    for (var i = 0; i < word.length; i++){
+      var c = document.createElement('span'); c.className = 'c'; c.textContent = word[i];
+      var th = spread ? (idx / total * spread + r() * 0.06) : (r() * 0.55);
+      c.style.setProperty('--th', th.toFixed(3));
+      c.style.setProperty('--jx', ((r() - 0.5) * 60).toFixed(1) + 'px');
+      c.style.setProperty('--jy', ((r() - 0.5) * 44).toFixed(1) + 'px');
+      c.style.setProperty('--jr', ((r() - 0.5) * 16).toFixed(1) + 'deg');
+      w.appendChild(c); idx++;
+    }
+    vis.appendChild(w);
+    if (wi < words.length - 1) vis.appendChild(document.createTextNode(' '));
+  });
+  el.textContent = '';
+  el.appendChild(vh); el.appendChild(vis);
+}
+document.querySelectorAll('.split').forEach(function(el, i){
+  var band = el.closest('.band');
+  var spread = band && band.dataset.spread ? parseFloat(band.dataset.spread) : 0;
+  splitText(el, 8123 + i * 977, spread);
+});
+
+/* ---------- band state ---------- */
+var bands = bandEls.map(function(el){
+  return { el: el,
+    a: parseFloat(el.dataset.a), b: parseFloat(el.dataset.b),
+    ramp: el.dataset.ramp ? parseFloat(el.dataset.ramp) : 0,
+    op: -1, k: -1 };
+});
+
+function smoothstep(p, e0, e1){
+  var t = Math.min(1, Math.max(0, (p - e0) / (e1 - e0)));
+  return t * t * (3 - 2 * t);
+}
+function clamp(v, lo, hi){ return Math.min(hi, Math.max(lo, v)); }
+
+function updateCaptions(p){
+  for (var i = 0; i < bands.length; i++){
+    var bd = bands[i], a = bd.a, b = bd.b;
+    var f = Math.min(0.02, (b - a) / 3);
+    var inOp  = (i === 0) ? 1 : smoothstep(p, a, a + f);
+    var outOp = (i === bands.length - 1) ? 0 : smoothstep(p, b - f, b);
+    var op = inOp * (1 - outOp);
+    var ramp = bd.ramp || Math.min(0.025, (b - a) * 0.35);
+    var k = clamp((p - a) / ramp, 0, 1);
+    if (i === 0) k = Math.max(k, loadK);
+    if (Math.abs(op - bd.op) > 0.004){ bd.el.style.opacity = op.toFixed(3); bd.op = op; }
+    if (Math.abs(k - bd.k) > 0.008){ bd.el.style.setProperty('--k', k.toFixed(3)); bd.k = k; }
+  }
+}
+
+/* band one assembles once on load, then hands over to scroll */
+var loadK = 0, loadStart = 0;
+function loadRamp(ts){
+  if (!loadStart) loadStart = ts;
+  loadK = Math.min(1, (ts - loadStart) / 1100);
+  updateCaptions(heroProgress());
+  if (loadK < 1) requestAnimationFrame(loadRamp);
+}
+
+/* ---------- scroll progress ---------- */
+function heroProgress(){
+  var rect = heroReg.getBoundingClientRect();
+  var range = heroReg.offsetHeight - window.innerHeight;
+  if (range <= 0) return 0;
+  return clamp(-rect.top / range, 0, 1);
+}
+
+/* ---------- gated seeks, deadlock safe ---------- */
+var seekBusy = false, pendingTime = null;
+function requestSeek(t){
+  if (!video.duration) return;
+  if (seekBusy){ pendingTime = t; return; }
+  seekBusy = true;
+  try { video.currentTime = t; } catch(e){ seekBusy = false; }
+}
+video.addEventListener('seeked', function(){
+  seekBusy = false;
+  if (pendingTime !== null){ var t = pendingTime; pendingTime = null; requestSeek(t); }
+});
+video.addEventListener('error', function(){ seekBusy = false; pendingTime = null; failVideo(); });
+
+/* ---------- lerp loop that rests ---------- */
+var target = 0, shown = 0, rafId = null, lastTick = 0, heroOnScreen = true;
+function tick(now){
+  var dt = Math.min(100, now - (lastTick || now));
+  lastTick = now;
+  var k = 0.16;
+  shown += (target - shown) * (1 - Math.pow(1 - k, dt / 16.667));
+  if (Math.abs(target - shown) < 0.0005){ shown = target; rafId = null; lastTick = 0; }
+  else { rafId = requestAnimationFrame(tick); }
+  if (video.duration) requestSeek(shown * video.duration);
+  updateCaptions(shown);
+}
+function onScroll(){
+  target = heroProgress();
+  if (rafId === null && heroOnScreen) rafId = requestAnimationFrame(tick);
+}
+if ('IntersectionObserver' in window){
+  new IntersectionObserver(function(es){ heroOnScreen = es[0].isIntersecting; },
+    { rootMargin: '10px' }).observe(heroReg);
+}
+
+/* ---------- the streamed blob with a loading ring ---------- */
+var heroStarted = false;
+function initHeroOnce(){
+  if (heroStarted) return;
+  heroStarted = true;
+  poster.style.backgroundImage = "url('assets/hero-poster.jpg')";
+  var started = false;
+  function startBlobFetch(){ if (started) return; started = true; loadHeroBlob().catch(failVideo); }
+  var img = new Image();
+  img.onload = startBlobFetch; img.onerror = startBlobFetch;
+  img.src = 'assets/hero-poster.jpg';
+  setTimeout(startBlobFetch, 4000);
+  requestAnimationFrame(loadRamp);
+}
+
+function loadHeroBlob(){
+  var ctrl = new AbortController();
+  var watchdog = setTimeout(function(){ ctrl.abort(); }, 20000);
+  return fetch(VIDEO_URL, { signal: ctrl.signal }).then(function(res){
+    if (!res.ok || !res.body) throw new Error('bad response');
+    var total = Number(res.headers.get('Content-Length')) || VIDEO_BYTES;
+    var reader = res.body.getReader(), chunks = [], got = 0, lastRing = 0;
+    function pump(){
+      return reader.read().then(function(r){
+        if (r.done) return;
+        clearTimeout(watchdog);
+        watchdog = setTimeout(function(){ ctrl.abort(); }, 20000);
+        chunks.push(r.value); got += r.value.length;
+        var frac = Math.min(1, got / total), now = performance.now();
+        if (now - lastRing > 100 || frac === 1){
+          lastRing = now;
+          ring.style.setProperty('--ld', Math.round(126 * (1 - frac)));
+        }
+        return pump();
+      });
+    }
+    return pump().then(function(){
+      clearTimeout(watchdog);
+      ring.style.setProperty('--ld', 0);
+      video.src = URL.createObjectURL(new Blob(chunks, { type: 'video/mp4' }));
+      video.load();
+      video.addEventListener('canplay', function(){
+        requestSeek(heroProgress() * video.duration);
+        stage.classList.add('video-ready');
+        if (ring) ring.style.display = 'none';
+      }, { once: true });
+    });
+  });
+}
+
+function failVideo(){
+  if (ring && ring.parentNode){
+    var chev = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    chev.setAttribute('class','chev'); chev.setAttribute('viewBox','0 0 24 24');
+    chev.setAttribute('aria-hidden','true');
+    chev.innerHTML = '<path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="1.6"/>';
+    ring.parentNode.replaceChild(chev, ring);
+  }
+  stage.classList.add('video-failed');
+  video.style.display = 'none';
+}
+
+/* ---------- arm and disarm the scrub, live on every gate change ---------- */
+var scrubOn = false;
+function enableScrub(){
+  if (scrubOn) return; scrubOn = true;
+  initHeroOnce();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  bands.forEach(function(b){ b.op = -1; b.k = -1; });
+  unpinFinalStates();
+  updateCaptions(heroProgress());
+  onScroll();
+}
+function disableScrub(){
+  if (!scrubOn) return; scrubOn = false;
+  window.removeEventListener('scroll', onScroll);
+  if (rafId !== null){ cancelAnimationFrame(rafId); rafId = null; }
+}
+function applyHeroMode(){
+  var gated = GATES.some(function(q){ return matchMedia(q).matches; });
+  if (gated) disableScrub(); else enableScrub();
+}
+MQLS.forEach(function(m){
+  if (m.addEventListener) m.addEventListener('change', applyHeroMode);
+  else if (m.addListener) m.addListener(applyHeroMode);
+});
+
+/* ---------- section entrances ---------- */
+var secs = [].slice.call(document.querySelectorAll('.sec, .ruleline'));
+document.querySelectorAll('.ruleline line').forEach(function(l){
+  try { l.style.setProperty('--len', Math.ceil(l.getTotalLength() || 1600)); }
+  catch(e){ l.style.setProperty('--len', 1600); }
+});
+if ('IntersectionObserver' in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      setTimeout(function(){ e.target.classList.add('done'); }, 1400);
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+  secs.forEach(function(s){ io.observe(s); });
+} else {
+  secs.forEach(function(s){ s.classList.add('in','done'); });
+}
+
+/* ---------- the interactive moment: hold to run the filter ---------- */
+var FIELD_N = 96, KEEP_N = 12;
+var field = document.getElementById('field');
+var holdBtn = document.getElementById('holdbtn');
+var holdFill = document.getElementById('holdfill');
+var readout = document.getElementById('readout');
+var RULES = [
+  { at: 0.16, label: 'Rule 01 / Curated by default' },
+  { at: 0.40, label: 'Rule 02 / Science over labels' },
+  { at: 0.63, label: 'Rule 03 / No hype tolerance' },
+  { at: 0.85, label: 'Rule 04 / Family safe by design' }
+];
+var dots = [], keepSet = {};
+(function buildField(){
+  var r = rng(4242);
+  var order = [];
+  for (var i = 0; i < FIELD_N; i++) order.push(i);
+  for (var j = order.length - 1; j > 0; j--){
+    var k2 = Math.floor(r() * (j + 1)); var tmp = order[j]; order[j] = order[k2]; order[k2] = tmp;
+  }
+  for (var s = 0; s < KEEP_N; s++) keepSet[order[s]] = true;
+  var survivors = order.slice(0, KEEP_N);
+  var doomed = order.slice(KEEP_N);
+  for (var d = 0; d < FIELD_N; d++){
+    var el = document.createElement('span');
+    el.className = 'dot';
+    field.appendChild(el);
+    dots.push({ el: el, keep: !!keepSet[d], th: 0 });
+  }
+  /* spread the doomed evenly across the four rules so each one visibly does work */
+  doomed.forEach(function(idx, n){
+    var band = Math.floor(n / (doomed.length / RULES.length));
+    if (band > RULES.length - 1) band = RULES.length - 1;
+    var lo = RULES[band].at, hi = (RULES[band + 1] ? RULES[band + 1].at : 1.0);
+    dots[idx].th = lo + (hi - lo) * ((n % 21) / 21);
+  });
+  survivors.forEach(function(idx){ dots[idx].th = 2; });
+})();
+
+var hp = 0, holding = false, holdRaf = null, holdLast = 0, lastRuleLabel = '', lastHpWrite = -1;
+function paintField(p){
+  if (Math.abs(p - lastHpWrite) < 0.006 && p !== 0 && p !== 1) return;
+  lastHpWrite = p;
+  holdFill.style.setProperty('--hp', p.toFixed(3));
+  for (var i = 0; i < dots.length; i++){
+    var d = dots[i];
+    var out = p >= d.th;
+    var keep = d.keep && p >= 0.92;
+    if (d.lastOut !== out){ d.el.classList.toggle('out', out); d.lastOut = out; }
+    if (d.lastKeep !== keep){ d.el.classList.toggle('keep', keep); d.lastKeep = keep; }
+  }
+  var label = 'Hold the button to run the filter';
+  for (var r2 = 0; r2 < RULES.length; r2++) if (p >= RULES[r2].at) label = RULES[r2].label;
+  if (p >= 0.97) label = 'Twelve remain. Nothing else earns the shelf.';
+  if (label !== lastRuleLabel){
+    readout.innerHTML = p >= 0.97 ? '<b>' + label + '</b>' : label;
+    lastRuleLabel = label;
+  }
+}
+function holdTick(now){
+  var dt = Math.min(100, now - (holdLast || now));
+  holdLast = now;
+  hp += (holding ? 1 : -1.4) * (dt / 2400);
+  hp = clamp(hp, 0, 1);
+  paintField(hp);
+  if ((holding && hp < 1) || (!holding && hp > 0)){ holdRaf = requestAnimationFrame(holdTick); }
+  else { holdRaf = null; holdLast = 0; }
+}
+function startHold(e){
+  if (e && e.cancelable) e.preventDefault();
+  holding = true;
+  if (holdRaf === null) holdRaf = requestAnimationFrame(holdTick);
+}
+function endHold(){ holding = false; if (holdRaf === null) holdRaf = requestAnimationFrame(holdTick); }
+holdBtn.addEventListener('pointerdown', startHold);
+holdBtn.addEventListener('pointerup', endHold);
+holdBtn.addEventListener('pointerleave', endHold);
+holdBtn.addEventListener('pointercancel', endHold);
+holdBtn.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); startHold(); } });
+holdBtn.addEventListener('keyup',   function(e){ if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); endHold(); } });
+paintField(0);
+
+/* ---------- the form ---------- */
+var form = document.getElementById('signup');
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  var email = document.getElementById('email');
+  if (!email.value || email.value.indexOf('@') < 1){ email.focus(); return; }
+  form.classList.add('done');
+  document.getElementById('success').classList.add('show');
+  document.getElementById('formnote').textContent =
+    'Nothing was sent. This form is not connected to an inbox yet.';
+});
+
+/* ---------- reduced motion, honored live in both directions ---------- */
+function pinToFinalStates(){
+  document.querySelectorAll('.ruleline line').forEach(function(l){ l.style.strokeDashoffset = '0'; });
+  document.querySelectorAll('.rev').forEach(function(el){ el.classList.add('in'); });
+  document.querySelectorAll('.sec, .ruleline').forEach(function(s){ s.classList.add('in','done'); });
+  holding = false;
+  if (holdRaf !== null){ cancelAnimationFrame(holdRaf); holdRaf = null; }
+  hp = 1; lastHpWrite = -1; paintField(1);
+  bands.forEach(function(b){ b.el.style.opacity = '1'; b.el.style.setProperty('--k','1'); });
+}
+function unpinFinalStates(){
+  document.querySelectorAll('.ruleline line').forEach(function(l){ l.style.strokeDashoffset = ''; });
+  document.querySelectorAll('.rev').forEach(function(el){
+    if (!el.closest('.sec.in') && !el.closest('.ruleline.in')) el.classList.remove('in');
+  });
+  hp = 0; lastHpWrite = -1; paintField(0);
+}
+var rmq = matchMedia('(prefers-reduced-motion: reduce)');
+function onRM(e){ if (e.matches) pinToFinalStates(); else applyHeroMode(); }
+if (rmq.addEventListener) rmq.addEventListener('change', onRM);
+else if (rmq.addListener) rmq.addListener(onRM);
+if (rmq.matches) pinToFinalStates();
+
+/* ---------- pause every loop on a hidden tab ---------- */
+document.addEventListener('visibilitychange', function(){
+  document.body.classList.toggle('paused', document.hidden);
+});
+
+applyHeroMode();
+})();
+</script>
+</body>
+</html>

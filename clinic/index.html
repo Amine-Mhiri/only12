@@ -5,33 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Only12 · Everything you buy. Nothing you should worry about.</title>
 <meta name="description" content="Twelve references per product type. Nothing else earns the shelf. Only12 does not sell health, it removes the doubt.">
-<meta name="theme-color" content="#0E1114">
-<!-- og tags patched at deploy: https://amine-mhiri.github.io/only12/ -->
+<meta name="theme-color" content="#ECEEEF">
+<!-- og tags patched at deploy: https://amine-mhiri.github.io/only12/clinic/ -->
 <meta property="og:title" content="Only12 · Everything you buy. Nothing you should worry about.">
 <meta property="og:description" content="Twelve references per product type. Nothing else earns the shelf.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://amine-mhiri.github.io/only12/">
-<meta property="og:image" content="https://amine-mhiri.github.io/only12/assets/hero-ending.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230E1114'/%3E%3Cg fill='%238FD2E8'%3E%3Crect x='3' y='13' width='1.4' height='6'/%3E%3Crect x='5.3' y='13' width='1.4' height='6'/%3E%3Crect x='7.6' y='13' width='1.4' height='6'/%3E%3Crect x='9.9' y='13' width='1.4' height='6'/%3E%3Crect x='12.2' y='13' width='1.4' height='6'/%3E%3Crect x='14.5' y='13' width='1.4' height='6'/%3E%3Crect x='16.8' y='13' width='1.4' height='6'/%3E%3Crect x='19.1' y='13' width='1.4' height='6'/%3E%3Crect x='21.4' y='13' width='1.4' height='6'/%3E%3Crect x='23.7' y='13' width='1.4' height='6'/%3E%3Crect x='26' y='13' width='1.4' height='6'/%3E%3Crect x='28.3' y='13' width='1.4' height='6'/%3E%3C/g%3E%3C/svg%3E">
+<meta property="og:url" content="https://amine-mhiri.github.io/only12/clinic/">
+<meta property="og:image" content="https://amine-mhiri.github.io/only12/clinic/assets/hero-ending.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ECEEEF'/%3E%3Cg fill='%231F3A5F'%3E%3Crect x='3' y='13' width='1.4' height='6'/%3E%3Crect x='5.3' y='13' width='1.4' height='6'/%3E%3Crect x='7.6' y='13' width='1.4' height='6'/%3E%3Crect x='9.9' y='13' width='1.4' height='6'/%3E%3Crect x='12.2' y='13' width='1.4' height='6'/%3E%3Crect x='14.5' y='13' width='1.4' height='6'/%3E%3Crect x='16.8' y='13' width='1.4' height='6'/%3E%3Crect x='19.1' y='13' width='1.4' height='6'/%3E%3Crect x='21.4' y='13' width='1.4' height='6'/%3E%3Crect x='23.7' y='13' width='1.4' height='6'/%3E%3Crect x='26' y='13' width='1.4' height='6'/%3E%3Crect x='28.3' y='13' width='1.4' height='6'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@450;500&family=IBM+Plex+Sans:wght@400;450;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --canvas:#0E1114;
-  --panel:#161A1F;
-  --accent:#8FD2E8;
-  --accent-hover:#B4E2F1;
-  --accent-muted:#2B3740;
-  --text-secondary:#AEB9C2;
-  --text-primary:#EDF1F3;
-  --rule:#232B32;
+  --canvas:#ECEEEF;
+  --panel:#E3E6E8;
+  --accent:#1F3A5F;
+  --accent-hover:#16293F;
+  --accent-muted:#B9C4CE;
+  --text-secondary:#414A51;
+  --text-primary:#161A1C;
+  --rule:#C8D0D6;
   --display:'Newsreader',Georgia,serif;
   --body:'IBM Plex Sans',system-ui,sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,monospace;
   --ease:cubic-bezier(.22,.61,.36,1);
   --ease-soft:cubic-bezier(.4,0,.2,1);
-  --tshadow:0 1px 2px rgba(5,8,10,.95),0 3px 12px rgba(5,8,10,.78),0 10px 44px rgba(5,8,10,.8);
+  /* light-world legibility: pale lift behind dark type, the inverse of the usual dark scrim */
+  --tshadow:0 1px 2px rgba(236,238,239,.95),0 3px 12px rgba(236,238,239,.85),0 10px 44px rgba(236,238,239,.9);
 }
 *,*::before,*::after{box-sizing:border-box}
 html,body{overflow-x:hidden;overflow-x:clip}
@@ -49,8 +50,8 @@ img{display:block;max-width:100%}
 /* one fixed environment layer so scrolling feels like moving through a place */
 .env{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(120% 80% at 50% -10%,rgba(143,210,232,.07) 0%,rgba(143,210,232,0) 60%),
-    radial-gradient(90% 60% at 20% 110%,rgba(35,43,50,.55) 0%,rgba(35,43,50,0) 65%);
+    radial-gradient(120% 80% at 50% -10%,rgba(255,255,255,.75) 0%,rgba(255,255,255,0) 60%),
+    radial-gradient(90% 60% at 20% 110%,rgba(185,196,206,.35) 0%,rgba(185,196,206,0) 65%);
   animation:envDrift 84s var(--ease-soft) -12s infinite alternate}
 @keyframes envDrift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(0,-2.2%,0) scale(1.06)}}
 
@@ -63,7 +64,7 @@ img{display:block;max-width:100%}
 /* ---------- nav ---------- */
 .nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:baseline;
   justify-content:space-between;padding:20px 32px;
-  background:linear-gradient(to bottom,rgba(14,17,20,.92),rgba(14,17,20,0));
+  background:linear-gradient(to bottom,rgba(236,238,239,.92),rgba(236,238,239,0));
   transition:background .5s var(--ease)}
 .brand{font-family:var(--display);font-size:21px;font-weight:500;letter-spacing:.01em;text-decoration:none}
 .brand b{font-weight:400}
@@ -82,7 +83,7 @@ img{display:block;max-width:100%}
 .stage.video-ready .poster{opacity:0;transition:opacity .9s var(--ease)}
 /* global base lift: no frame is ever raw behind the type */
 .scrim{position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 95% 85% at 50% 52%,rgba(6,9,12,.52) 0%,rgba(6,9,12,.34) 55%,rgba(6,9,12,.12) 100%)}
+  background:radial-gradient(ellipse 120% 90% at 30% 50%,rgba(240,242,243,.55) 0%,rgba(240,242,243,0) 62%)}
 
 .ring{position:absolute;left:50%;bottom:44px;width:34px;height:34px;margin-left:-17px;
   color:var(--accent-muted);opacity:.9;transform:rotate(-90deg)}
@@ -92,17 +93,17 @@ img{display:block;max-width:100%}
 @keyframes chev{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(7px);opacity:.75}}
 
 .bands{position:absolute;inset:0;pointer-events:none}
-.band{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(40ch,54vw);
-  text-align:center;opacity:0;text-shadow:var(--tshadow)}
-.band::before{content:"";position:absolute;inset:-72% -92%;pointer-events:none;z-index:-1;
+.band{position:absolute;left:7vw;top:50%;transform:translateY(-50%);width:min(46ch,50vw);
+  opacity:0;text-shadow:var(--tshadow)}
+.band::before{content:"";position:absolute;inset:-46% -56%;pointer-events:none;z-index:-1;
   opacity:calc(.28 + .72*var(--k,1));
-  background:radial-gradient(ellipse 52% 46% at 50% 50%,rgba(4,7,10,.90) 0%,rgba(4,7,10,.74) 38%,rgba(4,7,10,.34) 62%,rgba(4,7,10,0) 84%)}
+  background:radial-gradient(ellipse 56% 50% at 50% 50%,rgba(240,242,243,.88) 0%,rgba(240,242,243,.70) 40%,rgba(240,242,243,.30) 64%,rgba(240,242,243,0) 86%)}
 .band .kicker{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.18em;
   text-transform:uppercase;color:var(--text-primary);margin-bottom:18px;display:block}
 .band h1,.band .line{font-family:var(--display);font-weight:500;
   font-size:clamp(34px,4.6vw,62px);line-height:1.06;letter-spacing:-.02em}
 .band .sub{margin-top:18px;font-size:clamp(16px,1.3vw,19px);font-weight:450;color:var(--text-primary);
-  max-width:34ch;margin-left:auto;margin-right:auto}
+  max-width:34ch}
 .band .btn{text-shadow:none}
 
 /* per-character and per-word split spans */
@@ -129,7 +130,7 @@ img{display:block;max-width:100%}
   transform:translateY(calc((1 - var(--kb))*10px))}
 
 /* the twelve ticks, the site's one signature mark */
-.ticks{display:flex;gap:7px;align-items:flex-end;margin-top:26px;height:26px;justify-content:center}
+.ticks{display:flex;gap:7px;align-items:flex-end;margin-top:26px;height:26px}
 .ticks i{display:block;width:2px;background:var(--accent);height:14px;opacity:.55;
   transform-origin:bottom}
 .ticks i:nth-child(3n){height:26px;opacity:1}
@@ -140,7 +141,7 @@ img{display:block;max-width:100%}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
   font-family:var(--mono);font-size:13.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
-  background:var(--accent);color:#08121A;border:0;padding:15px 26px;cursor:pointer;
+  background:var(--accent);color:#F4F6F7;border:0;padding:15px 26px;cursor:pointer;
   text-decoration:none;transition:background .4s var(--ease),transform .4s var(--ease)}
 .btn:hover{background:var(--accent-hover);transform:translateY(-1px)}
 .btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent-muted)}
@@ -184,7 +185,7 @@ main{position:relative;z-index:2;background:var(--canvas)}
   overflow:hidden}
 .paradox-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .paradox-wrap::after{content:"";position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(14,17,20,.72) 0%,rgba(14,17,20,.86) 60%,rgba(14,17,20,.95) 100%)}
+  background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(240,242,243,.86) 0%,rgba(240,242,243,.4) 60%,rgba(240,242,243,.15) 100%)}
 .paradox-inner{position:relative;z-index:2;text-align:center;padding:0 32px;max-width:900px}
 .paradox-inner .h2{margin:0 auto;max-width:16ch}
 .paradox-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:54px;
@@ -269,7 +270,7 @@ main{position:relative;z-index:2;background:var(--canvas)}
   overflow:hidden}
 .cta-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .cta-wrap::after{content:"";position:absolute;inset:0;
-  background:radial-gradient(ellipse 75% 70% at 50% 50%,rgba(14,17,20,.76) 0%,rgba(14,17,20,.88) 60%,rgba(14,17,20,.96) 100%)}
+  background:radial-gradient(ellipse 75% 70% at 50% 50%,rgba(240,242,243,.9) 0%,rgba(240,242,243,.55) 60%,rgba(240,242,243,.2) 100%)}
 .cta-inner{position:relative;z-index:2;text-align:center;padding:0 32px;max-width:640px}
 .cta-inner .h2{margin:0 auto 22px;max-width:15ch}
 form{margin-top:36px;display:flex;flex-direction:column;gap:12px;align-items:stretch;
@@ -277,7 +278,7 @@ form{margin-top:36px;display:flex;flex-direction:column;gap:12px;align-items:str
 form .btn{width:100%}
 label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 input[type=email]{width:100%;padding:16px 18px;font-family:var(--body);
-  font-size:16px;font-weight:450;border:1px solid var(--accent-muted);background:rgba(255,255,255,.04);
+  font-size:16px;font-weight:450;border:1px solid var(--accent-muted);background:rgba(255,255,255,.7);
   color:var(--text-primary);transition:border-color .35s var(--ease)}
 input[type=email]:focus{border-color:var(--accent);outline:none}
 .formnote{font-family:var(--mono);font-size:12px;font-weight:450;letter-spacing:.08em;color:var(--text-secondary);
@@ -336,8 +337,7 @@ footer{position:relative;z-index:2;background:var(--panel);padding:72px 32px 52p
   .poster{position:absolute;inset:0;transform:none;
     background-image:url('assets/hero-ending.jpg')}
   .bands{position:relative;inset:auto;padding:clamp(96px,16vh,150px) 7vw clamp(56px,10vh,90px)}
-  .band{position:relative;left:auto;top:auto;transform:none;opacity:1;width:min(38ch,100%);
-    margin-left:auto;margin-right:auto}
+  .band{position:relative;left:auto;top:auto;transform:none;opacity:1;width:min(38ch,100%)}
   .band::before{display:none}
   .band.hide-static{display:none}
   .band + .band{margin-top:30px}
@@ -362,8 +362,7 @@ html.novideo #hero,html.novideo .ring,html.novideo .chev{display:none}
 html.novideo .poster{position:absolute;inset:0;transform:none;
     background-image:url('assets/hero-ending.jpg')}
 html.novideo .bands{position:relative;inset:auto;padding:clamp(96px,16vh,150px) 7vw clamp(56px,10vh,90px)}
-html.novideo .band{position:relative;left:auto;top:auto;transform:none;opacity:1;width:min(38ch,100%);
-    margin-left:auto;margin-right:auto}
+html.novideo .band{position:relative;left:auto;top:auto;transform:none;opacity:1;width:min(38ch,100%)}
 html.novideo .band::before{display:none}
 html.novideo .band.hide-static{display:none}
 html.novideo .band + .band{margin-top:30px}
@@ -641,7 +640,7 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
 <footer>
   <div class="finner">
     <div>
-      <div class="ticks lit" aria-hidden="true" style="margin-bottom:26px;justify-content:flex-start"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="ticks lit" aria-hidden="true" style="margin-bottom:26px"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <p class="fquote">We don't sell healthy. We remove the doubt.</p>
     </div>
     <div class="fmeta">
@@ -666,7 +665,7 @@ var GATES = [
 var MQLS = GATES.map(function(q){ return matchMedia(q); });
 
 var VIDEO_URL = 'assets/hero-scrub.mp4';
-var VIDEO_BYTES = 1135290;
+var VIDEO_BYTES = 1094995;
 
 var video   = document.getElementById('hero');
 var stage   = document.getElementById('stage');

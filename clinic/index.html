@@ -311,28 +311,26 @@ footer{position:relative;z-index:2;background:var(--panel);padding:72px 32px 52p
 /* short desktop windows have no room for the scroll cue */
 @media (max-height:560px){.ring,.chev{display:none}}
 
-/* Phones: the footage keeps its composition as a panel, and the words sit
-   below it on the canvas, where they need no scrim at all. */
+/* Phones: the footage fills the screen and the words sit at the foot of it,
+   over a gradient. A 4:3 panel left a dead slab on tall handsets. */
 @media (orientation:portrait),(max-width:860px){
   .hero{height:520vh}
-  .stage{background:var(--canvas);display:block}
-  #hero,.poster{position:absolute;top:0;left:0;width:100%;height:auto;
-    aspect-ratio:4/3;object-fit:cover;object-position:center}
+  .stage{background:var(--canvas)}
+  #hero,.poster{position:absolute;inset:0;width:100%;height:100%;
+    aspect-ratio:auto;object-fit:cover;object-position:center}
   .poster{background-size:cover;background-position:center}
-  .scrim{position:absolute;top:0;left:0;width:100%;aspect-ratio:4/3;height:auto;
-    background:linear-gradient(to bottom,rgba(240,242,243,0) 0%,rgba(240,242,243,0) 62%,rgba(240,242,243,.55) 100%)}
-  .ring{bottom:auto;top:calc(75vw - 46px)}
-  .band{position:absolute;left:0;right:0;top:75vw;bottom:0;
-    transform:none;width:auto;padding:4vh 7vw 6vh;text-align:center;
-    display:flex;flex-direction:column;justify-content:center;align-items:center;
-    text-shadow:none}
-  .band .sub{margin-top:14px}
+  .scrim{position:absolute;inset:0;width:auto;height:auto;aspect-ratio:auto;
+    background:linear-gradient(to bottom,rgba(236,238,239,0) 26%,rgba(236,238,239,.42) 55%,rgba(236,238,239,.86) 82%,rgba(236,238,239,.96) 100%)}
+  .ring{top:auto;bottom:auto;left:50%;top:14vh}
+  .band{position:absolute;left:0;right:0;top:auto;bottom:0;
+    transform:none;width:auto;padding:0 7vw 11vh;text-align:center;
+    display:block;text-shadow:var(--tshadow)}
   .band::before{display:none}
-  .band .kicker{margin-bottom:14px}
-  .band h1,.band .line{font-size:clamp(28px,7.6vw,44px);line-height:1.12}
-  .band .sub{font-size:clamp(14px,3.7vw,17px);margin-left:auto;margin-right:auto;
-    max-width:30ch}
-  .band .ticks{justify-content:center}
+  .band .kicker{margin-bottom:12px}
+  .band h1,.band .line{font-size:clamp(27px,7.2vw,42px);line-height:1.14}
+  .band .sub{font-size:clamp(14px,3.6vw,16px);margin:12px auto 0;max-width:30ch}
+  .band .ticks{justify-content:center;margin-top:18px}
+  .band .cta{margin-top:20px}
 }
 
 @media (pointer:coarse){

@@ -310,6 +310,30 @@ footer{position:relative;z-index:2;background:var(--panel);padding:72px 32px 52p
 /* short desktop windows have no room for the scroll cue */
 @media (max-height:560px){.ring,.chev{display:none}}
 
+/* Phones: the footage keeps its composition as a panel, and the words sit
+   below it on the canvas, where they need no scrim at all. */
+@media (orientation:portrait),(max-width:860px){
+  .hero{height:520vh}
+  .stage{background:var(--canvas);display:block}
+  #hero,.poster{position:absolute;top:0;left:0;width:100%;height:auto;
+    aspect-ratio:4/3;object-fit:cover;object-position:center}
+  .poster{background-size:cover;background-position:center}
+  .scrim{position:absolute;top:0;left:0;width:100%;aspect-ratio:4/3;height:auto;
+    background:linear-gradient(to bottom,rgba(4,7,10,0) 0%,rgba(4,7,10,0) 62%,rgba(4,7,10,.55) 100%)}
+  .ring{bottom:auto;top:calc(75vw - 46px)}
+  .band{position:absolute;left:0;right:0;top:75vw;bottom:0;
+    transform:none;width:auto;padding:4vh 7vw 6vh;text-align:center;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-shadow:none}
+  .band .sub{margin-top:14px}
+  .band::before{display:none}
+  .band .kicker{margin-bottom:14px}
+  .band h1,.band .line{font-size:clamp(28px,7.6vw,44px);line-height:1.12}
+  .band .sub{font-size:clamp(14px,3.7vw,17px);margin-left:auto;margin-right:auto;
+    max-width:30ch}
+  .band .ticks{justify-content:center}
+}
+
 @media (pointer:coarse){
   .btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
   input[type=email]{min-height:44px}
@@ -325,34 +349,8 @@ footer{position:relative;z-index:2;background:var(--panel);padding:72px 32px 52p
   .fmeta{text-align:left}
 }
 
-/* ---------- the five static-hero gates, matched exactly in JS ---------- */
-@media (max-width:720px),
-       (orientation:portrait) and (max-width:1024px),
-       (orientation:portrait) and (pointer:coarse),
-       (orientation:landscape) and (pointer:coarse) and (max-height:560px){
-  .hero{height:auto}
-  .stage{position:relative;height:auto;min-height:92vh;display:flex;align-items:center}
-  #hero,.ring,.chev{display:none}
-  .poster{position:absolute;inset:0;transform:none;
-    background-image:url('assets/hero-ending.jpg')}
-  .bands{position:relative;inset:auto;padding:clamp(96px,16vh,150px) 7vw clamp(56px,10vh,90px)}
-  .band{position:relative;left:auto;top:auto;transform:none;opacity:1;width:min(38ch,100%);
-    margin-left:auto;margin-right:auto}
-  .band::before{display:none}
-  .band.hide-static{display:none}
-  .band + .band{margin-top:30px}
-  /* the static hero is a composed block: headline, subline, mark, one action */
-  .band.settle .line{font-family:var(--body);font-weight:400;
-    font-size:clamp(16px,4.4vw,20px);line-height:1.5;letter-spacing:0;
-    color:var(--text-secondary);max-width:32ch;margin-left:auto;margin-right:auto}
-  .band.settle .sub{display:none}
-  .band .sub,.band .ticks,.band .cta{opacity:1;transform:none}
-  /* these must match or beat .e-rise .w and .e-scatter .c, or the words stay invisible */
-  .band .w,.band .c,.e-rise .w,.e-scatter .c{opacity:1;transform:none}
-  .settle .sub,.settle .ticks,.settle .cta{opacity:1;transform:none}
-  .e-blur .soft{display:none}
-  .e-blur .sharp{opacity:1}
-}
+/* Every screen gets the scrub now. The html.novideo rules below are the
+   fallback when the video cannot drive it. */
 
 /* The video is not driving the hero, so it must not stay 6 screens tall.
    Identical declarations to the five-gate block above, generated from it. */
@@ -657,12 +655,7 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
 'use strict';
 
 /* ---------- the five static-hero gates, identical strings to the CSS ---------- */
-var GATES = [
-  '(max-width: 720px)',
-  '(orientation: portrait) and (max-width: 1024px)',
-  '(orientation: portrait) and (pointer: coarse)',
-  '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)'
-];
+var GATES = [];   // no screen is excluded from the scrub any more
 var MQLS = GATES.map(function(q){ return matchMedia(q); });
 
 var VIDEO_URL = 'assets/hero-scrub.mp4';

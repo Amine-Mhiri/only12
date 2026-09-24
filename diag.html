@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Only12 diagnostic</title>
+<style>
+:root{--ok:#1E7A4B;--no:#9B2C2C;--ink:#161A1C;--dim:#5B646B}
+body{margin:0;padding:40px 28px;background:#ECEEEF;color:var(--ink);
+  font:16px/1.6 ui-monospace,monospace}
+h1{font:600 20px/1.3 ui-monospace,monospace;margin:0 0 6px}
+p.sub{color:var(--dim);margin:0 0 30px}
+table{border-collapse:collapse;width:100%;max-width:720px;margin-bottom:34px}
+td{padding:10px 8px;border-bottom:1px solid #C8D0D6;vertical-align:top}
+td:first-child{color:var(--dim);width:58%}
+b.y{color:var(--ok)}b.n{color:var(--no)}
+.verdict{max-width:720px;padding:18px 20px;border:2px solid var(--ink);margin-bottom:34px;
+  font-size:17px}
+.box{width:64px;height:64px;background:var(--ink);animation:slide 2s ease-in-out infinite alternate}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(220px)}}
+.note{max-width:720px;color:var(--dim);margin-top:14px}
+</style>
+</head>
+<body>
+<h1>Only12 diagnostic</h1>
+<p class="sub">Open this in the same browser you are viewing the site in.</p>
+
+<div class="verdict" id="verdict">checking…</div>
+
+<table id="t"></table>
+
+<h1>Is CSS animation running at all?</h1>
+<p class="sub">The square below should slide left and right, without stopping.</p>
+<div class="box"></div>
+<p class="note">If that square is not moving, your browser or system is blocking animation
+globally, and that is why the site looks still.</p>
+
+<script>
+var GATES = [
+  ['(max-width: 720px)', 'window narrower than 720px'],
+  ['(orientation: portrait) and (max-width: 1024px)', 'portrait and under 1024px'],
+  ['(orientation: portrait) and (pointer: coarse)', 'portrait with a touch pointer'],
+  ['(orientation: landscape) and (pointer: coarse) and (max-height: 560px)', 'short landscape touch screen'],
+  ['(prefers-reduced-motion: reduce)', 'reduced motion is ON']
+];
+var rows = [];
+var hit = [];
+GATES.forEach(function(g){
+  var m = matchMedia(g[0]).matches;
+  if (m) hit.push(g[1]);
+  rows.push([g[1], m]);
+});
+rows.push(['window size', innerWidth + ' x ' + innerHeight + ' px']);
+rows.push(['pointer', matchMedia('(pointer: coarse)').matches ? 'coarse (touch)' : 'fine (mouse)']);
+rows.push(['orientation', matchMedia('(orientation: portrait)').matches ? 'portrait' : 'landscape']);
+rows.push(['browser', navigator.userAgent.slice(0, 70)]);
+
+document.getElementById('t').innerHTML = rows.map(function(r){
+  var v = r[1];
+  if (typeof v === 'boolean') v = v ? '<b class="n">YES</b>' : '<b class="y">no</b>';
+  return '<tr><td>' + r[0] + '</td><td>' + v + '</td></tr>';
+}).join('');
+
+function render(){
+  var hit2 = [];
+  var html = GATES.map(function(g){
+    var m = matchMedia(g[0]).matches;
+    if (m) hit2.push(g[1]);
+    return '<tr><td>' + g[1] + '</td><td>' +
+      (m ? '<b class="n">YES</b>' : '<b class="y">no</b>') + '</td></tr>';
+  }).join('');
+  html += '<tr><td>window size</td><td>' + innerWidth + ' x ' + innerHeight + ' px</td></tr>';
+  html += '<tr><td>pointer</td><td>' + (matchMedia('(pointer: coarse)').matches ? 'coarse (touch)' : 'fine (mouse)') + '</td></tr>';
+  html += '<tr><td>orientation</td><td>' + (matchMedia('(orientation: portrait)').matches ? 'portrait' : 'landscape') + '</td></tr>';
+  html += '<tr><td>checked at</td><td>' + new Date().toLocaleTimeString() + '</td></tr>';
+  document.getElementById('t').innerHTML = html;
+  var vv = document.getElementById('verdict');
+  if (hit2.length === 0) {
+    vv.innerHTML = '<b class="y">The scrolling video hero SHOULD be running for you.</b><br>' +
+      'None of the five conditions that switch it to a still image are true. ' +
+      'Open the site and scroll slowly through the top: the video is driven by your scroll ' +
+      'position and never plays on its own.';
+  } else {
+    vv.innerHTML = '<b class="n">You are getting the still-image version.</b><br>Because: ' +
+      hit2.join(', ') + '.';
+  }
+}
+GATES.forEach(function(g){
+  var m = matchMedia(g[0]);
+  if (m.addEventListener) m.addEventListener('change', render);
+});
+addEventListener('resize', render);
+setInterval(render, 1000);
+render();
+
+</script>
+</body>
+</html>
